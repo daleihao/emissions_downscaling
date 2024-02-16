@@ -498,7 +498,12 @@ get_proxy <- function( em, year, sector, proxy_mapping, proxy_type = 'primary' )
     # Make sure we have only the emission species we want (issue for OC)
     extract_em <- sapply(strsplit(proxy_file, "[_]"),function(x) x[1])
     # Selects only the proxy file with the emission we want
-    proxy_file  <- proxy_file [which(extract_em == em)]
+    if (em == 'NMVOC') {
+      proxy_file  <- proxy_file [which(extract_em == 'VOC')]
+    }
+    else {
+      proxy_file  <- proxy_file [which(extract_em == em)]
+    }
   }
 
   # If we want a backup proxy, or the primary proxy file can't be found,
